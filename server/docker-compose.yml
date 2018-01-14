@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  pdf-service:
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    volumes:
+      - "./src:/app/src"
+    ports:
+      - "4444:3000"
