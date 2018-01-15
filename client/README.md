@@ -41,6 +41,13 @@ pdfService.generatePdf(`${__dirname}/src/index.html`,  // required
   templateParams: {  // optional
     tagline: 'Future is near!!!',
   },
+  templateHelpers: {
+    hours: Handlebars => (hours) => {
+      const htmlData = parseFloat(Handlebars.escapeExpression(hours)).toFixed(2);
+
+      return new Handlebars.SafeString(htmlData);
+    },
+  },
 })
 ```
 
@@ -48,7 +55,8 @@ Let's describe these options:
   1. **pagePath** - it is the path to **html** file which will be transformed to pdf.
   2. **pdfOptions** - you can provide pdf options (look options sections [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)).
   3. **headers** - you can provide headers which will be used on the page, for examle you can add authorization header (look [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagesetextrahttpheadersheaders))
-  4. **templateParams** - if you are using handlebars template then you can provide properties which wis used on template.
+  4. **templateParams** - if you are using handlebars template then you can provide properties which is used on template.
+  5. **templateHelpers** - if you are using handlebars template then you can provide helpers which is used on template.
 
 This method returns **stream** with your pdf file.
 

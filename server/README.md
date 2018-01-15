@@ -83,7 +83,3 @@ fetch('http://localhost:3000/pdf', {
     responseType: 'blob',
   });
 ```
-
-Known issues
-===========
-If you provide output option the empty html will be generated (also it is related to other options).
