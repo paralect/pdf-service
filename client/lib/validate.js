@@ -43,7 +43,7 @@ module.exports = ({ pagePath }) => {
         resultOutput: {
           path: outputDir,
           htmlPath: `${outputDir}/index.html`,
-          pdfPath: `${outputDir}/index.pdf`,
+          staticFilePath: `${outputDir}/index`,
         },
       };
     });

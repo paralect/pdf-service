@@ -1,7 +1,7 @@
 const webpackTask = require('./lib/webpackTask');
 
 const validate = require('./lib/validate');
-const { getPdfFromHtml, isProdHtmlExists } = require('./lib/api');
+const { getStaticFileFromHtml, isProdHtmlExists } = require('./lib/api');
 const logger = require('./lib/logger');
 
 const opn = require('opn');
@@ -26,18 +26,53 @@ module.exports = class PdfService {
 
     try {
       const paths = await validate({ pagePath });
-      const { htmlPath, pdfPath } = paths.resultOutput;
+      const { htmlPath, staticFilePath } = paths.resultOutput;
 
       if (this.mode === 'development' || !(await isProdHtmlExists(htmlPath))) {
         await webpackTask.build({ paths });
       }
 
-      return getPdfFromHtml({
-        outPaths: { htmlPath, pdfPath },
+      return getStaticFileFromHtml({
+        outPaths: { htmlPath, staticFilePath: `${staticFilePath}.pdf` },
         pdfOptions,
+        headers,
+        type: 'pdf',
+        templateParams,
+        templateHelpers,
+        serverUrl: this.serverUrl,
+        mode: this.mode,
+      });
+    } catch (err) {
+      logger.error(err.message, err.stack);
+      logger.error('Fatal error happened => exit');
+
+      return null;
+    }
+  }
+
+  async generateImage(pagePath, params) {
+    const {
+      imgOptions = {},
+      headers = {},
+      templateParams = {},
+      templateHelpers = {},
+    } = params;
+
+    try {
+      const paths = await validate({ pagePath });
+      const { htmlPath, staticFilePath } = paths.resultOutput;
+
+      if (this.mode === 'development' || !(await isProdHtmlExists(htmlPath))) {
+        await webpackTask.build({ paths });
+      }
+
+      return getStaticFileFromHtml({
+        outPaths: { htmlPath, staticFilePath: `${staticFilePath}.${imgOptions.type || 'png'}` },
+        imgOptions,
         headers,
         templateParams,
         templateHelpers,
+        type: imgOptions.type || 'png',
         serverUrl: this.serverUrl,
         mode: this.mode,
       });
@@ -65,7 +100,7 @@ module.exports = class PdfService {
         templateHelpers,
         serverUrl: this.serverUrl,
         mode: this.mode,
-        buildPdf: getPdfFromHtml,
+        buildPdf: getStaticFileFromHtml,
       };
 
       const { htmlPath } = await webpackTask.watch(watchParams);

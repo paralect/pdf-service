@@ -34,6 +34,16 @@ const getPdf = (html, pdfOptions, headers, serverUrl) => {
   }
 };
 
+const getImg = (html, pdfOptions, headers, serverUrl) => {
+  try {
+    return fetchService.fetchImage(html, pdfOptions, headers, serverUrl);
+  } catch (err) {
+    logger.error('Something irreparable happened !!!\n', 'When get pdf file');
+    throw err;
+  }
+};
+
+
 const writePdf = async (outPdf, pdfStream) => {
   try {
     return new Promise((resolve, reject) => {
@@ -52,28 +62,31 @@ const isProdHtmlExists = (htmlPath) => {
   return fs.exists(htmlPath);
 };
 
-const getPdfFromHtml = async ({
+const getStaticFileFromHtml = async ({
   outPaths,
   pdfOptions,
   headers,
   templateHelpers,
   templateParams,
   serverUrl,
+  type,
   mode = 'development',
   watch,
 }) => {
-  const { htmlPath, pdfPath } = outPaths;
+  const { htmlPath, staticFilePath } = outPaths;
   const html = await readFile(htmlPath, templateParams, templateHelpers);
 
   if (watch) {
     await fs.writeFile(htmlPath, html);
   }
 
-  let pdfStream = getPdf(html, pdfOptions, headers, serverUrl);
+  let pdfStream = type === 'pdf'
+    ? getPdf(html, pdfOptions, headers, serverUrl)
+    : getImg(html, pdfOptions, headers, serverUrl);
 
   if (mode === 'development') {
-    await writePdf(pdfPath, pdfStream);
-    pdfStream = fs.__fs.createReadStream(pdfPath);
+    await writePdf(staticFilePath, pdfStream);
+    pdfStream = fs.__fs.createReadStream(staticFilePath);
 
     return pdfStream;
   }
@@ -81,4 +94,4 @@ const getPdfFromHtml = async ({
   return pdfStream.pipe((PassThrough()));
 };
 
-module.exports = { getPdfFromHtml, isProdHtmlExists };
+module.exports = { getStaticFileFromHtml, isProdHtmlExists };

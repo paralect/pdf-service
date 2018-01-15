@@ -1,6 +1,6 @@
 const mount = require('koa-mount');
-const pdfService = require('resources/pdf');
+const generatorService = require('resources/generator');
 
 module.exports = (app) => {
-  app.use(mount('/pdf', pdfService));
+  app.use(mount('/', generatorService));
 };
