@@ -94,4 +94,23 @@ const getStaticFileFromHtml = async ({
   return pdfStream.pipe((PassThrough()));
 };
 
-module.exports = { getStaticFileFromHtml, isProdHtmlExists };
+
+const getStaticFileByContent = async ({
+  content,
+  pdfOptions,
+  headers,
+  templateHelpers,
+  templateParams,
+  serverUrl,
+  type,
+}) => {
+  const html = compileHtml(content, templateParams, templateHelpers);
+  console.log(html);
+  const pdfStream = type === 'pdf'
+    ? getPdf(html, pdfOptions, headers, serverUrl)
+    : getImg(html, pdfOptions, headers, serverUrl);
+
+  return pdfStream.pipe((PassThrough()));
+};
+
+module.exports = { getStaticFileFromHtml, isProdHtmlExists, getStaticFileByContent };

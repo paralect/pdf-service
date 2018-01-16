@@ -1,7 +1,7 @@
 const webpackTask = require('./lib/webpackTask');
 
 const validate = require('./lib/validate');
-const { getStaticFileFromHtml, isProdHtmlExists } = require('./lib/api');
+const { getStaticFileFromHtml, isProdHtmlExists, getStaticFileByContent } = require('./lib/api');
 const logger = require('./lib/logger');
 
 const opn = require('opn');
@@ -50,6 +50,33 @@ module.exports = class PdfService {
     }
   }
 
+
+  async generatePdfByContent(content, params) {
+    const {
+      pdfOptions = {},
+      headers = {},
+      templateParams = {},
+      templateHelpers = {},
+    } = params;
+
+    try {
+      return getStaticFileByContent({
+        pdfOptions,
+        headers,
+        type: 'pdf',
+        templateParams,
+        templateHelpers,
+        content,
+        serverUrl: this.serverUrl,
+      });
+    } catch (err) {
+      logger.error(err.message, err.stack);
+      logger.error('Fatal error happened => exit');
+
+      return null;
+    }
+  }
+
   async generateImage(pagePath, params) {
     const {
       imgOptions = {},
@@ -75,6 +102,33 @@ module.exports = class PdfService {
         type: imgOptions.type || 'png',
         serverUrl: this.serverUrl,
         mode: this.mode,
+      });
+    } catch (err) {
+      logger.error(err.message, err.stack);
+      logger.error('Fatal error happened => exit');
+
+      return null;
+    }
+  }
+
+
+  async generateImageByContent(content, params) {
+    const {
+      imgOptions = {},
+      headers = {},
+      templateParams = {},
+      templateHelpers = {},
+    } = params;
+
+    try {
+      return getStaticFileByContent({
+        imgOptions,
+        headers,
+        templateParams,
+        templateHelpers,
+        content,
+        type: imgOptions.type || 'png',
+        serverUrl: this.serverUrl,
       });
     } catch (err) {
       logger.error(err.message, err.stack);
