@@ -89,6 +89,7 @@ const watch = ({ paths, templateParams, templateHelpers, serverUrl, buildPdf, mo
       await buildPdf({
         outPaths: { htmlPath, pdfPath },
         templateParams,
+        type: 'pdf',
         templateHelpers,
         serverUrl,
         mode,
