@@ -20,8 +20,7 @@ module.exports = class PdfService {
     const {
       pdfOptions = {},
       headers = {},
-      templateParams = {},
-      templateHelpers = {},
+      templateSystem = {},
     } = params;
 
     try {
@@ -37,8 +36,7 @@ module.exports = class PdfService {
         pdfOptions,
         headers,
         type: 'pdf',
-        templateParams,
-        templateHelpers,
+        templateSystem,
         serverUrl: this.serverUrl,
         mode: this.mode,
       });
@@ -55,8 +53,7 @@ module.exports = class PdfService {
     const {
       pdfOptions = {},
       headers = {},
-      templateParams = {},
-      templateHelpers = {},
+      templateSystem = {},
     } = params;
 
     try {
@@ -64,8 +61,7 @@ module.exports = class PdfService {
         pdfOptions,
         headers,
         type: 'pdf',
-        templateParams,
-        templateHelpers,
+        templateSystem,
         content,
         serverUrl: this.serverUrl,
       });
@@ -81,8 +77,7 @@ module.exports = class PdfService {
     const {
       imgOptions = {},
       headers = {},
-      templateParams = {},
-      templateHelpers = {},
+      templateSystem = {},
     } = params;
 
     try {
@@ -97,8 +92,7 @@ module.exports = class PdfService {
         outPaths: { htmlPath, staticFilePath: `${staticFilePath}.${imgOptions.type || 'png'}` },
         imgOptions,
         headers,
-        templateParams,
-        templateHelpers,
+        templateSystem,
         type: imgOptions.type || 'png',
         serverUrl: this.serverUrl,
         mode: this.mode,
@@ -116,16 +110,14 @@ module.exports = class PdfService {
     const {
       imgOptions = {},
       headers = {},
-      templateParams = {},
-      templateHelpers = {},
+      templateSystem = {},
     } = params;
 
     try {
       return getStaticFileByContent({
         imgOptions,
         headers,
-        templateParams,
-        templateHelpers,
+        templateSystem,
         content,
         type: imgOptions.type || 'png',
         serverUrl: this.serverUrl,
@@ -140,8 +132,7 @@ module.exports = class PdfService {
 
   async watch(pagePath, params) {
     const {
-      templateParams = {},
-      templateHelpers = {},
+      templateSystem = {},
       pdfOptions = {},
     } = params;
 
@@ -150,8 +141,7 @@ module.exports = class PdfService {
       const watchParams = {
         paths,
         pdfOptions,
-        templateParams,
-        templateHelpers,
+        templateSystem,
         serverUrl: this.serverUrl,
         mode: this.mode,
         buildPdf: getStaticFileFromHtml,

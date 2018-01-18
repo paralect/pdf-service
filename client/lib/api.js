@@ -5,20 +5,30 @@ const PassThrough = require('stream').PassThrough;
 const logger = require('./logger');
 const Handlebars = require('handlebars');
 
-const compileHtml = (html, templateParams, templateHelpers) => {
-  Object.keys(templateHelpers).forEach((helperName) => {
-    Handlebars.registerHelper(helperName, templateHelpers[helperName](Handlebars));
+const compileHtml = (html, templateSystem) => {
+  const {
+    params = {},
+    helpers = {},
+    partials = {},
+  } = templateSystem;
+
+  Object.keys(helpers).forEach((helperName) => {
+    Handlebars.registerHelper(helperName, helpers[helperName](Handlebars));
+  });
+
+  Object.keys(partials).forEach((partialName) => {
+    Handlebars.registerPartial(partialName, partials[partialName]);
   });
 
   const compiledHtml = Handlebars.compile(html);
-  return compiledHtml(templateParams);
+  return compiledHtml(params);
 };
 
-const readFile = async (filePath, templateParams, templateHelpers) => {
+const readFile = async (filePath, templateSystem) => {
   try {
     const html = (await fs.readFile(filePath)).toString('binary');
 
-    return compileHtml(html, templateParams, templateHelpers);
+    return compileHtml(html, templateSystem);
   } catch (err) {
     logger.error('Something irreparable happened !!!\n', 'When read file');
     throw err;
@@ -66,15 +76,14 @@ const getStaticFileFromHtml = async ({
   outPaths,
   pdfOptions,
   headers,
-  templateHelpers,
-  templateParams,
+  templateSystem,
   serverUrl,
   type,
   mode = 'development',
   watch,
 }) => {
   const { htmlPath, staticFilePath } = outPaths;
-  const html = await readFile(htmlPath, templateParams, templateHelpers);
+  const html = await readFile(htmlPath, templateSystem);
 
   if (watch) {
     await fs.writeFile(htmlPath, html);
@@ -99,13 +108,11 @@ const getStaticFileByContent = async ({
   content,
   pdfOptions,
   headers,
-  templateHelpers,
-  templateParams,
+  templateSystem,
   serverUrl,
   type,
 }) => {
-  const html = compileHtml(content, templateParams, templateHelpers);
-  console.log(html);
+  const html = compileHtml(content, templateSystem);
   const pdfStream = type === 'pdf'
     ? getPdf(html, pdfOptions, headers, serverUrl)
     : getImg(html, pdfOptions, headers, serverUrl);

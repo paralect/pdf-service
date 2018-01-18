@@ -12,12 +12,14 @@ const optionDefinitions = [
 
 const options = commandLineArgs(optionDefinitions);
 
+options.templateSystem = {};
+
 if (options.templateParams) {
-  options.templateParams = require(path.resolve(options.templateParams)); // eslint-disable-line
+  options.templateSystem.params = require(path.resolve(options.templateParams)); // eslint-disable-line
 }
 
 if (options.templateHelpers) {
-  options.templateHelpers = require(path.resolve(options.templateHelpers)); // eslint-disable-line
+  options.templateSystem.helpers = require(path.resolve(options.templateHelpers)); // eslint-disable-line
 }
 
 const pdfService = new PdfService(options);
