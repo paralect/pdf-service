@@ -9,7 +9,9 @@ pdfService.generatePdf(`${__dirname}/src/index.html`, {
   pdfOptions: {
     format: 'Letter',
   },
-  templateParams: {
-    tagline: 'Future is near!!!',
+  templateSystem: {
+    params: {
+      tagline: 'Future is near!!!',
+    },
   },
 });

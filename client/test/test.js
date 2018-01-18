@@ -16,33 +16,36 @@ const pdfParams = {
       bottom: '0mm',
     },
   },
-  templateParams: {
-    invoice: {
-      paidOn: '2017-08-22',
-      totalAmount: 100000,
-      creditCard: {
-        type: 'VISA',
-        last4: '4357',
-      },
-      activeUsers: 'Artem',
-      transaction: {
-        amount: 12000,
-        _id: 123,
-      },
-      appName: 'Pdf Service',
-      from: '2017-07-22',
-      to: '2017-08-22',
-      items: [
-        {
-          description: 'Spinners',
-          amount: 13000,
+  templateSystem: {
+    params: {
+      invoice: {
+        paidOn: '2017-08-22',
+        totalAmount: 100000,
+        creditCard: {
+          type: 'VISA',
+          last4: '4357',
         },
-        {
-          description: 'Vape',
+        activeUsers: 'Artem',
+        transaction: {
           amount: 12000,
+          _id: 123,
         },
-      ],
-    } },
+        appName: 'Pdf Service',
+        from: '2017-07-22',
+        to: '2017-08-22',
+        items: [
+          {
+            description: 'Spinners',
+            amount: 13000,
+          },
+          {
+            description: 'Vape',
+            amount: 12000,
+          },
+        ],
+      },
+    },
+  },
 };
 
 const testDirPath = `${__dirname}/test-waste`;
