@@ -85,6 +85,14 @@ const getStaticFileFromHtml = async ({
   const { htmlPath, staticFilePath } = outPaths;
   const html = await readFile(htmlPath, templateSystem);
 
+  if (options.headerTemplate) {
+    Object.assign(options, { headerTemplate: compileHtml(options.headerTemplate, templateSystem) });
+  }
+
+  if (options.footerTemplate) {
+    Object.assign(options, { footerTemplate: compileHtml(options.footerTemplate, templateSystem) });
+  }
+
   if (watch) {
     await fs.writeFile(htmlPath, html);
   }
@@ -113,6 +121,15 @@ const getStaticFileByContent = async ({
   type,
 }) => {
   const html = compileHtml(content, templateSystem);
+
+  if (options.headerTemplate) {
+    Object.assign(options, { headerTemplate: compileHtml(options.headerTemplate, templateSystem) });
+  }
+
+  if (options.footerTemplate) {
+    Object.assign(options, { footerTemplate: compileHtml(options.footerTemplate, templateSystem) });
+  }
+
   const pdfStream = type === 'pdf'
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
