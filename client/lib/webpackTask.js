@@ -76,7 +76,7 @@ const build = ({ paths }) => {
   });
 };
 
-const watch = ({ paths, templateSystem, serverUrl, buildPdf, mode }) => {
+const watch = ({ paths, templateSystem, serverUrl, buildPdf, mode, options }) => {
   const config = getConfig({ paths });
   const compiler = webpack(config);
   return new Promise((resolve, reject) => {
@@ -89,6 +89,7 @@ const watch = ({ paths, templateSystem, serverUrl, buildPdf, mode }) => {
       await buildPdf({
         outPaths: { htmlPath, pdfPath },
         templateSystem,
+        options,
         type: 'pdf',
         serverUrl,
         mode,
