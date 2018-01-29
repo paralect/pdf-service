@@ -74,7 +74,7 @@ const isProdHtmlExists = (htmlPath) => {
 
 const getStaticFileFromHtml = async ({
   outPaths,
-  pdfOptions,
+  options,
   headers,
   templateSystem,
   serverUrl,
@@ -90,8 +90,8 @@ const getStaticFileFromHtml = async ({
   }
 
   let pdfStream = type === 'pdf'
-    ? getPdf(html, pdfOptions, headers, serverUrl)
-    : getImg(html, pdfOptions, headers, serverUrl);
+    ? getPdf(html, options, headers, serverUrl)
+    : getImg(html, options, headers, serverUrl);
 
   if (mode === 'development') {
     await writePdf(staticFilePath, pdfStream);
@@ -106,7 +106,7 @@ const getStaticFileFromHtml = async ({
 
 const getStaticFileByContent = async ({
   content,
-  pdfOptions,
+  options,
   headers,
   templateSystem,
   serverUrl,
@@ -114,8 +114,8 @@ const getStaticFileByContent = async ({
 }) => {
   const html = compileHtml(content, templateSystem);
   const pdfStream = type === 'pdf'
-    ? getPdf(html, pdfOptions, headers, serverUrl)
-    : getImg(html, pdfOptions, headers, serverUrl);
+    ? getPdf(html, options, headers, serverUrl)
+    : getImg(html, options, headers, serverUrl);
 
   return pdfStream.pipe((PassThrough()));
 };

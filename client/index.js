@@ -33,7 +33,7 @@ module.exports = class PdfService {
 
       return getStaticFileFromHtml({
         outPaths: { htmlPath, staticFilePath: `${staticFilePath}.pdf` },
-        pdfOptions,
+        options: pdfOptions,
         headers,
         type: 'pdf',
         templateSystem,
@@ -58,7 +58,7 @@ module.exports = class PdfService {
 
     try {
       return getStaticFileByContent({
-        pdfOptions,
+        options: pdfOptions,
         headers,
         type: 'pdf',
         templateSystem,
@@ -90,7 +90,7 @@ module.exports = class PdfService {
 
       return getStaticFileFromHtml({
         outPaths: { htmlPath, staticFilePath: `${staticFilePath}.${imgOptions.type || 'png'}` },
-        imgOptions,
+        options: imgOptions,
         headers,
         templateSystem,
         type: imgOptions.type || 'png',
@@ -115,7 +115,7 @@ module.exports = class PdfService {
 
     try {
       return getStaticFileByContent({
-        imgOptions,
+        options: imgOptions,
         headers,
         templateSystem,
         content,
@@ -140,7 +140,7 @@ module.exports = class PdfService {
       const paths = await validate({ pagePath });
       const watchParams = {
         paths,
-        pdfOptions,
+        options: pdfOptions,
         templateSystem,
         serverUrl: this.serverUrl,
         mode: this.mode,
