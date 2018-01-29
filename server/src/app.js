@@ -10,6 +10,10 @@ const PORT = 3000;
 const logger = global.logger;
 const Koa = require('koa');
 
+process.on('unhandledRejection', (reason, p) => {
+  logger.log('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason);
+});
+
 const app = new Koa();
 require('./config/koa')(app);
 
