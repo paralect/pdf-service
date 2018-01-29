@@ -27,7 +27,7 @@ const closeBrowser = (browser) => {
   return browser.close();
 };
 
-const goToPage = async ({browser, url, headers}) => {
+const goToPage = async ({ browser, url, headers }) => {
   const page = await browser.newPage();
 
   if (headers && Object.keys(headers).length) {
@@ -35,16 +35,16 @@ const goToPage = async ({browser, url, headers}) => {
   }
 
   await page.goto(url, {
-    waitUntil: 'networkidle',
+    waitUntil: 'networkidle2',
     timeout: 100000,
   });
   await page.emulateMedia('screen');
 
-  return page
+  return page;
 };
 
 module.exports = {
   getBrowser,
   closeBrowser,
-  goToPage
+  goToPage,
 };
