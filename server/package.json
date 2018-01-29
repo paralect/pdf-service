@@ -1,6 +1,6 @@
 {
   "name": "paralect-pdf-service",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "Service to create pdf files from html pages",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "koa-router": "7.2.1",
     "koa-validate": "1.0.7",
     "nodemon": "1.11.0",
-    "puppeteer": "0.10.2"
+    "puppeteer": "1.0.0"
   },
   "devDependencies": {
     "eslint": "4.3.0",
