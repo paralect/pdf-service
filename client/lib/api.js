@@ -97,6 +97,9 @@ const getStaticFileFromHtml = async ({
     await fs.writeFile(htmlPath, html);
   }
 
+  logger.debug('HTML BODY', html);
+  logger.debug('HTML OPTIONS', options);
+
   let pdfStream = type === 'pdf'
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
@@ -129,6 +132,9 @@ const getStaticFileByContent = async ({
   if (options.footerTemplate) {
     Object.assign(options, { footerTemplate: compileHtml(options.footerTemplate, templateSystem) });
   }
+
+  logger.debug('HTML BODY', html);
+  logger.debug('HTML OPTIONS', options);
 
   const pdfStream = type === 'pdf'
     ? getPdf(html, options, headers, serverUrl)

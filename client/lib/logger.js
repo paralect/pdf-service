@@ -1,3 +1,3 @@
 const createConsoleLogger = require('@paralect/common-logger').createConsoleLogger;
 
-module.exports = createConsoleLogger({});
+module.exports = createConsoleLogger({ isDev: process.env.DEBUG === 'pdf-service' });
