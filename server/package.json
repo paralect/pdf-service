@@ -1,6 +1,6 @@
 {
   "name": "paralect-pdf-service",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Service to create pdf files from html pages",
   "main": "index.js",
   "scripts": {

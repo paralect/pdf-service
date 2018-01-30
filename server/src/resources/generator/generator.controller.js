@@ -1,6 +1,7 @@
-const generateValidator = require('./validator/generateValidator');
+const logger = require('logger');
 
-const {getBrowser, closeBrowser, goToPage} = require('infrastructure/browser.helper');
+const generateValidator = require('./validator/generateValidator');
+const { getBrowser, closeBrowser, goToPage } = require('infrastructure/browser.helper');
 
 module.exports.generatePdf = async (ctx) => {
   const data = await generateValidator(ctx);
@@ -12,7 +13,12 @@ module.exports.generatePdf = async (ctx) => {
   ctx.type = 'application/pdf';
   ctx.attachment('out.pdf');
 
-  const {url, html, options, headers} = data;
+  const { url, html, options, headers } = data;
+
+  logger.debug('URL', url);
+  logger.debug('HTML', html);
+  logger.debug('OPTIONS', options);
+  logger.debug('HEADERS', headers);
 
   const browser = await getBrowser();
 
@@ -20,7 +26,7 @@ module.exports.generatePdf = async (ctx) => {
     const page = await goToPage({
       browser,
       headers,
-      url: url ? url : `data:text/html,${html}`
+      url: url || `data:text/html,${html}`,
     });
 
     ctx.body = await page.pdf(
@@ -48,7 +54,7 @@ module.exports.generateImage = async (ctx) => {
     return;
   }
 
-  const {url, html, options, headers} = data;
+  const { url, html, options, headers } = data;
 
   const imageType = options.type || 'png';
 
@@ -57,15 +63,20 @@ module.exports.generateImage = async (ctx) => {
 
   const browser = await getBrowser();
 
+  logger.debug('URL', url);
+  logger.debug('HTML', html);
+  logger.debug('OPTIONS', options);
+  logger.debug('HEADERS', headers);
+
   try {
     const page = await goToPage({
       browser,
       headers,
-      url: url ? url : `data:text/html,${html}`
+      url: url || `data:text/html,${html}`,
     });
 
     ctx.body = await page.screenshot({
-      fullPage: true
+      fullPage: true,
     }, options);
 
     await page.close();

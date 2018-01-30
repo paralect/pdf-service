@@ -7,5 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - "./src:/app/src"
+    environment:
+      - DEBUG=true
     ports:
       - "4444:3000"
