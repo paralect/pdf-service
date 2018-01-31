@@ -104,14 +104,16 @@ const getStaticFileFromHtml = async ({
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
 
+  const streamHeaders = pdfStream.headers;
+
   if (mode === 'development') {
     await writePdf(staticFilePath, pdfStream);
     pdfStream = fs.__fs.createReadStream(staticFilePath);
 
-    return pdfStream;
+    return Object.assign(pdfStream, { headers: streamHeaders });
   }
 
-  return pdfStream.pipe((PassThrough()));
+  return Object.assign(pdfStream.pipe((PassThrough())), { headers: streamHeaders });
 };
 
 
@@ -140,7 +142,9 @@ const getStaticFileByContent = async ({
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
 
-  return pdfStream.pipe((PassThrough()));
+  const streamHeaders = pdfStream.headers;
+
+  return Object.assign(pdfStream.pipe((PassThrough())), { headers: streamHeaders });
 };
 
 module.exports = { getStaticFileFromHtml, isProdHtmlExists, getStaticFileByContent };
