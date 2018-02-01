@@ -1,14 +1,11 @@
-const request = require('request');
+const request = require('needle');
 
 module.exports.fetchPdf = (html, pdfOptions, headers, serverUrl) => {
-  return request({
-    uri: `${serverUrl}/pdf`,
-    method: 'POST',
-    body: JSON.stringify({
-      options: pdfOptions,
-      headers,
-      html,
-    }),
+  return request.post(`${serverUrl}/pdf`, {
+    options: pdfOptions,
+    headers,
+    html,
+  }, {
     headers: {
       'Content-Type': 'application/json',
     },

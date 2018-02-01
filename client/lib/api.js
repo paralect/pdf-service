@@ -68,6 +68,17 @@ const writePdf = async (outPdf, pdfStream) => {
   }
 };
 
+const setLength = (stream) => {
+  return new Promise((resolve, reject) => {
+    stream.on('header', (status, responseHeaders) => {
+      const streamWithLength = Object.assign({}, stream, {
+        length: responseHeaders['content-length'],
+      });
+      resolve(streamWithLength);
+    });
+  });
+};
+
 const isProdHtmlExists = (htmlPath) => {
   return fs.exists(htmlPath);
 };
@@ -104,16 +115,16 @@ const getStaticFileFromHtml = async ({
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
 
-  const streamHeaders = pdfStream.headers;
+  const streamWithLength = await setLength(pdfStream);
 
   if (mode === 'development') {
     await writePdf(staticFilePath, pdfStream);
     pdfStream = fs.__fs.createReadStream(staticFilePath);
 
-    return Object.assign(pdfStream, { headers: streamHeaders });
+    return Object.assign(pdfStream, { length: streamWithLength.length });
   }
 
-  return Object.assign(pdfStream.pipe((PassThrough())), { headers: streamHeaders });
+  return Object.assign(pdfStream.pipe((PassThrough())), { length: streamWithLength.length });
 };
 
 
@@ -142,9 +153,9 @@ const getStaticFileByContent = async ({
     ? getPdf(html, options, headers, serverUrl)
     : getImg(html, options, headers, serverUrl);
 
-  const streamHeaders = pdfStream.headers;
+  const streamWithLength = await setLength(pdfStream);
 
-  return Object.assign(pdfStream.pipe((PassThrough())), { headers: streamHeaders });
+  return Object.assign(pdfStream.pipe((PassThrough())), { length: streamWithLength.length });
 };
 
 module.exports = { getStaticFileFromHtml, isProdHtmlExists, getStaticFileByContent };
