@@ -71,6 +71,10 @@ const writePdf = async (outPdf, pdfStream) => {
 const setLength = (stream) => {
   return new Promise((resolve, reject) => {
     stream.on('header', (status, responseHeaders) => {
+      if (status >= 400) {
+        reject(`Error on server: ${status}. Look to server logs!`);
+      }
+
       const streamWithLength = Object.assign({}, stream, {
         length: responseHeaders['content-length'],
       });
