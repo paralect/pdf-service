@@ -1,7 +1,7 @@
 const request = require('needle');
 
 module.exports.fetchPdf = (html, pdfOptions, headers, serverUrl) => {
-  return request.post(`${serverUrl}/pdf`, {
+  const requestStream = request.post(`${serverUrl}/pdf`, {
     options: pdfOptions,
     headers,
     html,
@@ -10,19 +10,20 @@ module.exports.fetchPdf = (html, pdfOptions, headers, serverUrl) => {
       'Content-Type': 'application/json',
     },
   });
+
+  return requestStream;
 };
 
 module.exports.fetchImage = (html, imgOptions, headers, serverUrl) => {
-  return request({
-    uri: `${serverUrl}/image`,
-    method: 'POST',
-    body: JSON.stringify({
-      options: imgOptions,
-      headers,
-      html,
-    }),
+  const requestStream = request.post(`${serverUrl}/pdf`, {
+    options: imgOptions,
+    headers,
+    html,
+  }, {
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
+  return requestStream;
 };
