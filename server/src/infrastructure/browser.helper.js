@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const logger = require('logger');
 
 let browserPromise;
 
@@ -39,6 +40,14 @@ const goToPage = async ({ browser, url, headers }) => {
     timeout: 100000,
   });
   await page.emulateMedia('screen');
+
+  page.on('console', (...args) => logger.debug('PAGE LOG:', ...args));
+
+  page.on('error', (err) => {
+    logger.error(`Error event emitted: ${err}`);
+    logger.error(err.stack);
+    closeBrowser(browser);
+  });
 
   return page;
 };
