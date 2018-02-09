@@ -1,7 +1,12 @@
 {
   "name": "@paralect/pdf-service-client",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Pdf service client for https://hub.docker.com/r/paralect/pdf-service/",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/paralect/pdf-service"
+  },
   "main": "index.js",
   "bin": {
     "pdf-service-watch": "./watch.js",

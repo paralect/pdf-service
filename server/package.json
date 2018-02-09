@@ -1,6 +1,11 @@
 {
   "name": "paralect-pdf-service",
-  "version": "0.3.6",
+  "version": "0.3.7",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/paralect/pdf-service"
+  },
   "description": "Service to create pdf files from html pages",
   "main": "index.js",
   "scripts": {
