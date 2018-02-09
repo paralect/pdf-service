@@ -1,24 +1,25 @@
 const logger = require('logger');
 
-const generateValidator = require('./validator/generateValidator');
+const {
+  generateImageValidator,
+  generatePdfValidator,
+} = require('./validators');
 const { getBrowser, closeBrowser, goToPage } = require('infrastructure/browser.helper');
 
 module.exports.generatePdf = async (ctx) => {
-  const data = await generateValidator(ctx);
+  const result = await generatePdfValidator.validate(ctx);
 
-  if (!data.isValid) {
-    return;
-  }
+  ctx.assert(!result.errors, 400);
 
   ctx.type = 'application/pdf';
   ctx.attachment('out.pdf');
 
-  const { url, html, options, headers } = data;
+  const { url, html, options, headers } = result.value;
 
-  logger.debug('URL', url);
-  logger.debug('HTML', html);
-  logger.debug('OPTIONS', options);
-  logger.debug('HEADERS', headers);
+  logger.debug('URL: ', url);
+  logger.debug('HTML: ', html);
+  logger.debug('OPTIONS: ', options);
+  logger.debug('HEADERS: ', headers);
 
   const browser = await getBrowser();
 
@@ -48,13 +49,11 @@ module.exports.generatePdf = async (ctx) => {
 };
 
 module.exports.generateImage = async (ctx) => {
-  const data = await generateValidator(ctx);
+  const result = await generateImageValidator.validate(ctx);
 
-  if (!data.isValid) {
-    return;
-  }
+  ctx.assert(!result.errors, 400);
 
-  const { url, html, options, headers } = data;
+  const { url, html, options, headers } = result.value;
 
   const imageType = options.type || 'png';
 
@@ -63,10 +62,10 @@ module.exports.generateImage = async (ctx) => {
 
   const browser = await getBrowser();
 
-  logger.debug('URL', url);
-  logger.debug('HTML', html);
-  logger.debug('OPTIONS', options);
-  logger.debug('HEADERS', headers);
+  logger.debug('URL: ', url);
+  logger.debug('HTML: ', html);
+  logger.debug('OPTIONS: ', options);
+  logger.debug('HEADERS: ', headers);
 
   try {
     const page = await goToPage({
