@@ -15,7 +15,7 @@ module.exports.fetchPdf = (html, pdfOptions, headers, serverUrl) => {
 };
 
 module.exports.fetchImage = (html, imgOptions, headers, serverUrl) => {
-  const requestStream = request.post(`${serverUrl}/pdf`, {
+  const requestStream = request.post(`${serverUrl}/image`, {
     options: imgOptions,
     headers,
     html,
