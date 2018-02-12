@@ -1,5 +1,5 @@
 Pdf service by Paralect service-stack
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 ===========
 This module can be used for pdf generating (reports, receipts and etc.) from the html sources.
 
@@ -15,8 +15,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/14125982?v=4" width="100px;"/><br /><sub><b>KuhArt</b></sub>](https://github.com/KuhArt)<br />[💻](https://github.com/paralect/pdf-service/commits?author=KuhArt "Code") [📖](https://github.com/paralect/pdf-service/commits?author=KuhArt "Documentation") [🐛](https://github.com/paralect/pdf-service/issues?q=author%3AKuhArt "Bug reports") |
-| :---: |
+| [<img src="https://avatars3.githubusercontent.com/u/14125982?v=4" width="100px;"/><br /><sub><b>KuhArt</b></sub>](https://github.com/KuhArt)<br />[💻](https://github.com/paralect/pdf-service/commits?author=KuhArt "Code") [📖](https://github.com/paralect/pdf-service/commits?author=KuhArt "Documentation") [🐛](https://github.com/paralect/pdf-service/issues?q=author%3AKuhArt "Bug reports") | [<img src="https://avatars2.githubusercontent.com/u/2989199?v=4" width="100px;"/><br /><sub><b>Uladzimir Mitskevich</b></sub>](https://github.com/umitskevich)<br />[🤔](#ideas-umitskevich "Ideas, Planning, & Feedback") [🐛](https://github.com/paralect/pdf-service/issues?q=author%3Aumitskevich "Bug reports") |
+| :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
