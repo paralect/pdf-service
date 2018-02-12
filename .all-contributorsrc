@@ -37,6 +37,17 @@
         "ideas",
         "bug"
       ]
+    },
+    {
+      "login": "anorsich",
+      "name": "Andrew Orsich",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/681396?v=4",
+      "profile": "http://paralect.com",
+      "contributions": [
+        "ideas",
+        "bug",
+        "design"
+      ]
     }
   ]
 }
