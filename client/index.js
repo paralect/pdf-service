@@ -16,7 +16,7 @@ module.exports = class PdfService {
     this.mode = mode === 'production' ? 'production' : 'development';
   }
 
-  async generatePdf(pagePath, params) {
+  async generatePdf(pagePath, params = {}) {
     const {
       pdfOptions = {},
       headers = {},
@@ -49,7 +49,7 @@ module.exports = class PdfService {
   }
 
 
-  async generatePdfByContent(content, params) {
+  async generatePdfByContent(content, params = {}) {
     const {
       pdfOptions = {},
       headers = {},
@@ -73,7 +73,7 @@ module.exports = class PdfService {
     }
   }
 
-  async generateImage(pagePath, params) {
+  async generateImage(pagePath, params = {}) {
     const {
       imgOptions = {},
       headers = {},
@@ -106,7 +106,7 @@ module.exports = class PdfService {
   }
 
 
-  async generateImageByContent(content, params) {
+  async generateImageByContent(content, params = {}) {
     const {
       imgOptions = {},
       headers = {},
