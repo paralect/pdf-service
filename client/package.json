@@ -23,7 +23,7 @@
     "node": ">=7.6.0"
   },
   "author": "Paralect",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@paralect/common-logger": "0.1.10",
     "autoprefixer": "^7.1.2",

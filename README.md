@@ -1,15 +1,96 @@
-Pdf service by Paralect service-stack
+:scroll: PDF Service
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 ===========
-This module can be used for pdf generating (reports, receipts and etc.) from the html sources.
+![Stack](https://raw.githubusercontent.com/paralect/stack/master/stack-component-template/stack.png)
 
-Information
-===========
-The module is using [puppeteer](https://www.npmjs.com/package/puppeteer) under the hood.
-It consists of two parts
- - [Server](server/README.md) which makes transformation from html to pdf
- - [Client](client/README.md) - this part prepare your html with assets to [server](server/README.md) transformations
-## Contributors
+###### [CLIENT API](client/README.md) | [SERVER API](server/README.md) | [CONTRIBUTING](CONTRIBUTING.md)
+> Pdf service can be used for pdf generating (reports, receipts and etc.) from the html sources.
+
+Features
+========
+Here are a few examples to get you started:
+
+* :rocket: Generate PDF(screenshots) from the html as a string / file.
+* :package: Build your assets without headache.
+
+
+Installation
+========
+
+You should start pdf server first. It is easy to mange if you have docker:
+
+```
+docker pull paralect/pdf-service
+docker run -d -p 3000:3000 paralect/pdf-service
+```
+
+After that install client library:
+
+```
+npm i @paralect/pdf-service-client
+```
+
+Quick example
+=============
+In your js file write these lines:
+
+```
+const PdfService = require('@paralect/pdf-service-client'); // require client pdf service library
+const fs = require('fs'); // fs to write file
+
+// pdf service init
+const pdfService = new PdfService({
+  serverUrl: 'http://localhost:3000',
+  mode: 'development',
+});
+
+// generate pdf by html string
+pdfService.generatePdfByContent('<body><h1>Hello, {{name}}!</h1></body>', {
+  pdfOptions: {
+    format: 'Letter',
+  },
+  templateSystem: {
+    params: {
+      name: 'Your name',
+    },
+  },
+}).then((pdfStream) => {
+  const writeStream = fs.createWriteStream('./hello.pdf');
+
+  pdfStream.pipe(writeStream);
+
+  writeStream.on('finish', () => {
+    console.log('Hello pdf was created!');
+  });
+});
+```
+
+Execution of this code should generate pdf file with 'Hello, Your name' string.
+
+Full API Reference
+=================
+Explore the API documentation([client side](client/README.md) and [server side](server/README.md)) and [examples](client/samples) to learn more.
+
+Change Log
+=================
+
+This project adheres to [Semantic Versioning](http://semver.org/).
+Every release is documented on the Github [Releases](https://github.com/paralect/pdf-service/releases) page.
+
+License
+=================
+
+Ship is released under the [MIT License](LICENSE).
+
+Contributing
+=================
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+Contributors
+=================
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
