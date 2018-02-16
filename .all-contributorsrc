@@ -1,0 +1,72 @@
+{
+  "projectName": "pdf-service",
+  "projectOwner": "paralect",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "KuhArt",
+      "name": "KuhArt",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14125982?v=4",
+      "profile": "https://github.com/KuhArt",
+      "contributions": [
+        "code",
+        "doc",
+        "bug"
+      ]
+    },
+    {
+      "login": "umitskevich",
+      "name": "Uladzimir Mitskevich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2989199?v=4",
+      "profile": "https://github.com/umitskevich",
+      "contributions": [
+        "ideas",
+        "bug"
+      ]
+    },
+    {
+      "login": "NesterenkoNikita",
+      "name": "NesterenkoNikita",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12069883?v=4",
+      "profile": "https://github.com/NesterenkoNikita",
+      "contributions": [
+        "ideas",
+        "bug"
+      ]
+    },
+    {
+      "login": "anorsich",
+      "name": "Andrew Orsich",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/681396?v=4",
+      "profile": "http://paralect.com",
+      "contributions": [
+        "ideas",
+        "bug",
+        "design"
+      ]
+    },
+    {
+      "login": "ezhivitsa",
+      "name": "Evgeny Zhivitsa",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6461311?v=4",
+      "profile": "https://github.com/ezhivitsa",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "filipochka97",
+      "name": "Женя Филиппович",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/21078183?v=4",
+      "profile": "https://github.com/filipochka97",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ]
+}
