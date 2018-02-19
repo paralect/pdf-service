@@ -18,24 +18,56 @@ pipeline:
       status: [ failure, success ]
       event: [ pull_request ]
 
- increment-package-version:
+# Temporally hide
+# increment-package-version:
+#   image: node:8.9
+#   commands:
+#     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+#     - cd ./client
+#     - npm version patch
+#     - cd ../server/
+#     - npm version $(./../deploy/get-package-version.sh ./../client/package.json)
+#     - eval "$(ssh-agent -s)"
+#     - mkdir -p ~/.ssh
+#     - echo "$GITHUB_SSH" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+#     - echo "StrictHostKeyChecking no\n" > ~/.ssh/config && chmod 700 ~/.ssh/config
+#     - ssh-add ~/.ssh/id_rsa
+#     - git config --global user.email $GITHUB_EMAIL
+#     - git config --global user.name $GITHUB_USERNAME
+#     - git commit -am "[*] Update client npm package [CI SKIP]"
+#     - git remote set-url origin $GITHUB_URL
+#     - git push origin master
+#     - cd ../client
+#     - npm publish
+#   secrets: [ npm_auth_token, github_email, github_username, github_ssh, github_url ]
+#   when:
+#     branch: ["master"]
+#     event: [push]
+
+ npm-release-new-version:
    image: node:8.9
    commands:
-     -npm adduser<<!
-       ${AK_NPM_USERNAME}
-       ${AK_NPM_PASSWORD}
-       ${AK_NPM_EMAIL}
-       !
+     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
      - cd ./client
-     - npm version patch
-     - cd ../server/
-     - npm version $(./bin/get-package-version.sh ../client/package.json)
-     - git commit -am "[*] Update client npm package [CI SKIP]"
-     - git push origin master
-   secrets: [ AK_NPM_USERNAME, AK_NPM_PASSWORD, AK_NPM_EMAIL ]
+     - npm publish
+   secrets: [ npm_auth_token ]
    when:
-     branch: ["master"]
-     event: [push]
+     event: [ tag ]
+
+ docker-release-new-version:
+   image: plugins/docker:1.12
+   username: ${DOCKER_USERNAME}
+   password: ${DOCKER_PASSWORD}
+   email: ${DOCKER_EMAIL}
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+   tags:
+     - "$DRONE_TAG"
+     - latest
+   secrets: [ docker_password, docker_email, docker_username ]
+   context: ./server/
+   when:
+     event: [ tag ]
 
 services:
   pdf-service:
