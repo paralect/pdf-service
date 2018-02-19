@@ -222,12 +222,12 @@ Every release is documented on the Github [Releases](https://github.com/paralect
 License
 =================
 
-Ship is released under the [MIT License](LICENSE).
+Ship is released under the [MIT License](https://github.com/paralect/pdf-service/blob/master/LICENSE).
 
 Contributing
 =================
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/paralect/pdf-service/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 Contributors
 =================
