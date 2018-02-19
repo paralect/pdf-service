@@ -1,0 +1,44 @@
+pipeline:
+ run-server-tests:
+    image: node:8.9
+    detach: true
+    commands:
+       - cd ./server
+       - sh ./bin/run.sh
+    when:
+      status: [ failure, success ]
+      event: [ pull_request ]
+
+ run-client-tests:
+    image: node:8.9
+    commands:
+      - cd ./client
+      - sh ./bin/run.sh
+    when:
+      status: [ failure, success ]
+      event: [ pull_request ]
+
+ increment-package-version:
+   image: node:8.9
+   commands:
+     - npm adduser<<!
+       ${AK_NPM_USERNAME}
+       ${AK_NPM_PASSWORD}
+       ${AK_NPM_EMAIL}
+       !
+     - cd ./client
+     - npm version patch
+     - cd ../server/
+     - npm version $(./server/bin/get-package-version.sh ./client/package.json)
+     - git commit -am "[*] Update client npm package [CI SKIP]"
+     - git push origin master
+   secrets: [ AK_NPM_USERNAME, AK_NPM_PASSWORD, AK_NPM_EMAIL ]
+   when:
+     branch: ["master"]
+     event: [push]
+
+services:
+  pdf-service:
+    image: paralect/pdf-service
+
+branches: [ master, "*:master" ]
