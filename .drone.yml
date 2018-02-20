@@ -53,6 +53,7 @@ pipeline:
    secrets: [ npm_auth_token ]
    when:
      event: [ tag ]
+     branches: [ master ]
 
  docker-release-new-version:
    image: plugins/docker:1.12
@@ -67,7 +68,8 @@ pipeline:
    secrets: [ docker_password, docker_email, docker_username ]
    context: ./server/
    when:
-     event: [ tag ]
+      event: [ tag ]
+      branches: [ master ]
 
 services:
   pdf-service:
