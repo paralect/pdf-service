@@ -1,10 +1,9 @@
 {
   "name": "paralect-pdf-service",
   "version": "0.5.1",
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/paralect/pdf-service"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paralect/pdf-service"
   },
   "description": "Service to create pdf files from html pages",
   "main": "index.js",
@@ -19,23 +18,23 @@
   "dependencies": {
     "@paralect/common-logger": "0.1.10",
     "app-module-path": "2.2.0",
-    "joi": "13.1.2",
+    "joi": "^13.4.0",
     "kcors": "2.2.1",
-    "koa": "2.3.0",
+    "koa": "^2.5.1",
     "koa-bodyparser": "4.2.0",
     "koa-helmet": "3.2.0",
     "koa-logger": "3.0.1",
     "koa-mount": "3.0.0",
     "koa-router": "7.2.1",
     "koa-validate": "1.0.7",
-    "nodemon": "1.11.0",
+    "nodemon": "^1.17.5",
     "puppeteer": "1.0.0"
   },
   "devDependencies": {
-    "eslint": "4.3.0",
     "babel-eslint": "7.2.3",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "15.1.0",
-    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.1.0"
   }
