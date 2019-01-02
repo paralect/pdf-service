@@ -37,7 +37,7 @@ const goToPage = async ({ browser, url, headers }) => {
   }
 
   await page.goto(url, {
-    waitUntil: 'networkidle2',
+    waitUntil: 'networkidle0',
     timeout: 100000,
   });
   await page.emulateMedia('screen');
