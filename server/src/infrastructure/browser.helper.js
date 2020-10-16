@@ -31,7 +31,6 @@ const closeBrowser = (browser) => {
 
 const goToPage = async ({ browser, url, headers }) => {
   const page = await browser.newPage();
-
   if (headers && Object.keys(headers).length) {
     await page.setExtraHTTPHeaders(headers);
   }
@@ -40,7 +39,8 @@ const goToPage = async ({ browser, url, headers }) => {
     waitUntil: 'networkidle0',
     timeout: 100000,
   });
-  await page.emulateMedia('screen');
+
+  await page.emulateMediaType('screen');
 
   page.on('console', (...args) => logger.debug('PAGE LOG:', ...args));
 

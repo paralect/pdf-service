@@ -27,8 +27,14 @@ module.exports.generatePdf = async (ctx) => {
     const page = await goToPage({
       browser,
       headers,
-      url: url || `data:text/html,${html}`,
+      url: url || 'data:text/html,<!DOCTYPE html><html lang="en">',
     });
+
+    if (html) {
+      await page.setContent(html);
+    }
+    
+    logger.debug('MAKE PDF');
 
     ctx.body = await page.pdf(
       Object.assign({
@@ -71,8 +77,14 @@ module.exports.generateImage = async (ctx) => {
     const page = await goToPage({
       browser,
       headers,
-      url: url || `data:text/html,${html}`,
+      url: url || 'data:text/html,<!DOCTYPE html><html lang="en">',
     });
+
+    if (html) {
+      await page.setContent(html);
+    }
+    
+    logger.debug('MAKE IMAGE');
 
     ctx.body = await page.screenshot({
       fullPage: true,
