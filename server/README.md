@@ -75,7 +75,7 @@ This is api reference.
 
 POST /pdf
 ---------
-This request can have a html text and special pdf options (look options sections [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions))in body. Also this request can have headers which will be used on the page, for examle you can add authorization header (look [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagesetextrahttpheadersheaders))
+This request can have a html text and special pdf options (look options sections [here](https://pptr.dev/api/puppeteer.pdfoptions))in body. Also this request can have headers which will be used on the page, for examle you can add authorization header (look [here](https://pptr.dev/api/puppeteer.page.setextrahttpheaders))
 The sample of request to localhost with Fetch API:
 
 ``` javascript
